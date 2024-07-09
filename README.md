@@ -20,3 +20,5 @@ pip install -r requirements.txt
 
 # Running the App
 1. python run.py
+
+->> The config.py file is for the database connection code 
