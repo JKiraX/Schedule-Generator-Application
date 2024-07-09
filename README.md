@@ -5,6 +5,8 @@ An automated shift scheduling and generating application using Google OR API Too
 
 ###### Main branch is protected, pull-requests require the approval of one user before merging to Main ######
 
+
+
 # Set-Up Environment
 1. Open Terminal and set up virtual environment:
 python -m venv venv
