@@ -16,9 +16,8 @@ venv\Scripts\activate
 pip install -r requirements.txt
 
 4. Create a .env file in your root directory with the Database Connection String
-
+->> The config.py file is for the database connection code 
 
 # Running the App
 1. python run.py
 
-->> The config.py file is for the database connection code 
