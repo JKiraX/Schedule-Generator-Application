@@ -21,3 +21,6 @@ pip install -r requirements.txt
 # Running the App
 1. python run.py
 
+# Google OR Tools Set-Up
+https://developers.google.com/optimization/service/setup
+
