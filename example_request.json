@@ -1,0 +1,81 @@
+{
+  "solverConfig": {
+    "multiDaySchedule": true,
+    "timeLimit": "300s"
+  },
+  "shiftTemplates": [
+    {
+      "id": "shift_6am_2pm",
+      "earliestStartTime": {
+        "hours": 6
+      },
+      "latestStartTime": {
+        "hours": 6
+      },
+      "durationMinutes": 480,
+      "startTimeIncrementMinutes": 60,
+      "eventTemplates": [],
+      "minimumIntereventGapMinutes": 0,
+      "maximumEmployeeCount": 1
+    },
+    {
+      "id": "shift_8am_4pm",
+      "earliestStartTime": {
+        "hours": 8
+      },
+      "latestStartTime": {
+        "hours": 8
+      },
+      "durationMinutes": 480,
+      "startTimeIncrementMinutes": 60,
+      "eventTemplates": [],
+      "minimumIntereventGapMinutes": 0,
+      "maximumEmployeeCount": 1
+    },
+    {
+      "id": "shift_2pm_10pm",
+      "earliestStartTime": {
+        "hours": 14
+      },
+      "latestStartTime": {
+        "hours": 14
+      },
+      "durationMinutes": 480,
+      "startTimeIncrementMinutes": 60,
+      "eventTemplates": [],
+      "minimumIntereventGapMinutes": 0,
+      "maximumEmployeeCount": 1
+    },
+    {
+      "id": "shift_10pm_6am",
+      "earliestStartTime": {
+        "hours": 22
+      },
+      "latestStartTime": {
+        "hours": 22
+      },
+      "durationMinutes": 480,
+      "startTimeIncrementMinutes": 60,
+      "eventTemplates": [],
+      "minimumIntereventGapMinutes": 0,
+      "maximumEmployeeCount": 1
+    }
+  ],
+  "employeeDemands": [
+    {
+      "startDateTime": {
+        "year": 2024,
+        "month": 1,
+        "day": 1
+      },
+      "endDateTime": {
+        "year": 2024,
+        "month": 1,
+        "day": 7,
+        "hours": 23,
+        "minutes": 59
+      },
+      "employeeCount": 4
+    }
+  ]
+}
