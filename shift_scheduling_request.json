@@ -1,0 +1,1061 @@
+{
+  "shifts": [
+    {
+      "id": "Monday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Monday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Monday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Monday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Tuesday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Tuesday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Tuesday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Tuesday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Wednesday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Wednesday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Wednesday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Wednesday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Thursday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Thursday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Thursday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Thursday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Friday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Friday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Friday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Friday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Saturday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Saturday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Saturday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Saturday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 6
+      }
+    },
+    {
+      "id": "Sunday_06-14",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 14
+      }
+    },
+    {
+      "id": "Sunday_08-16",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 16
+      }
+    },
+    {
+      "id": "Sunday_14-22",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 22
+      }
+    },
+    {
+      "id": "Sunday_22-06",
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 5,
+        "hours": 6
+      }
+    }
+  ],
+  "employees": [
+    {
+      "id": "Yusheen",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "Roxanne",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "Mpho",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "Phumeza",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "Hope",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "Katlego",
+      "role_ids": [
+        "Employee"
+      ]
+    },
+    {
+      "id": "John",
+      "role_ids": [
+        "Employee"
+      ]
+    }
+  ],
+  "coverage_requirements": [
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 29,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 30,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 7,
+        "day": 31,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 1,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 2,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 3,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 6
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 14
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 8
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 16
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 14
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 22
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    },
+    {
+      "start_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 4,
+        "hours": 22
+      },
+      "end_date_time": {
+        "year": 2024,
+        "month": 8,
+        "day": 5,
+        "hours": 6
+      },
+      "role_requirements": [
+        {
+          "role_id": "Employee",
+          "target_employee_count": 1
+        }
+      ]
+    }
+  ],
+  "role_ids": [
+    "Employee"
+  ],
+  "solve_parameters": {
+    "time_limit": {
+      "seconds": 30
+    }
+  },
+  "shift_constraints": [
+    {
+      "max_consecutive_shifts": {
+        "maximum": 3
+      },
+      "min_consecutive_shifts_off": {
+        "minimum": 2
+      },
+      "max_shifts_per_week": {
+        "maximum": 5
+      },
+      "min_shifts_per_week": {
+        "minimum": 5
+      }
+    }
+  ],
+  "employee_shift_constraints": [
+    {
+      "min_hours_between_shifts": {
+        "minimum": 16
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-# For database connection code 
-# You have to create .env file on your own local version of the project as it is hidden from the commit history
-# Ask repo owner for DB URL credentials
+import os
 
+class Config:
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

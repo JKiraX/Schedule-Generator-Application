@@ -1,81 +1,343 @@
+
 {
-  "solverConfig": {
-    "multiDaySchedule": true,
-    "timeLimit": "300s"
-  },
-  "shiftTemplates": [
-    {
-      "id": "shift_6am_2pm",
-      "earliestStartTime": {
-        "hours": 6
-      },
-      "latestStartTime": {
-        "hours": 6
-      },
-      "durationMinutes": 480,
-      "startTimeIncrementMinutes": 60,
-      "eventTemplates": [],
-      "minimumIntereventGapMinutes": 0,
-      "maximumEmployeeCount": 1
-    },
-    {
-      "id": "shift_8am_4pm",
-      "earliestStartTime": {
-        "hours": 8
-      },
-      "latestStartTime": {
-        "hours": 8
-      },
-      "durationMinutes": 480,
-      "startTimeIncrementMinutes": 60,
-      "eventTemplates": [],
-      "minimumIntereventGapMinutes": 0,
-      "maximumEmployeeCount": 1
-    },
-    {
-      "id": "shift_2pm_10pm",
-      "earliestStartTime": {
-        "hours": 14
-      },
-      "latestStartTime": {
-        "hours": 14
-      },
-      "durationMinutes": 480,
-      "startTimeIncrementMinutes": 60,
-      "eventTemplates": [],
-      "minimumIntereventGapMinutes": 0,
-      "maximumEmployeeCount": 1
-    },
-    {
-      "id": "shift_10pm_6am",
-      "earliestStartTime": {
-        "hours": 22
-      },
-      "latestStartTime": {
-        "hours": 22
-      },
-      "durationMinutes": 480,
-      "startTimeIncrementMinutes": 60,
-      "eventTemplates": [],
-      "minimumIntereventGapMinutes": 0,
-      "maximumEmployeeCount": 1
-    }
-  ],
-  "employeeDemands": [
-    {
+  "employees": [{
+    "id": "Adam",
+    "roleIds": ["Registered Nurse"],
+    "schedulingConstraints": [{
+      "priority": "PRIORITY_HIGH",
       "startDateTime": {
-        "year": 2024,
-        "month": 1,
-        "day": 1
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
       },
       "endDateTime": {
-        "year": 2024,
-        "month": 1,
-        "day": 7,
-        "hours": 23,
-        "minutes": 59
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
       },
-      "employeeCount": 4
+      "minimumRestMinutes": 720
+    }, {
+      "priority": "PRIORITY_MEDIUM",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "maximumMinutes": 2160
+    }]
+  }, {
+    "id": "Grace",
+    "roleIds": ["Registered Nurse"],
+    "schedulingConstraints": [{
+      "priority": "PRIORITY_HIGH",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "minimumRestMinutes": 720
+    }, {
+      "priority": "PRIORITY_MEDIUM",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "maximumMinutes": 2160
+    }]
+  }, {
+    "id": "James",
+    "roleIds": ["Registered Nurse"],
+    "schedulingConstraints": [{
+      "priority": "PRIORITY_HIGH",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "minimumRestMinutes": 720
+    }, {
+      "priority": "PRIORITY_MEDIUM",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "maximumMinutes": 2160
+    }]
+  }, {
+    "id": "Alonso",
+    "roleIds": ["Registered Nurse"],
+    "schedulingConstraints": [{
+      "priority": "PRIORITY_HIGH",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "minimumRestMinutes": 720
+    }, {
+      "priority": "PRIORITY_MEDIUM",
+      "startDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 1,
+        "hours": 7
+      },
+      "endDateTime": {
+        "year": 2023,
+        "month": 5,
+        "day": 5,
+        "hours": 7
+      },
+      "maximumMinutes": 2160
+    }]
+  }],
+  "shifts": [{
+    "id": "2023-05-01 7hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 1,
+      "hours": 7
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 1,
+      "hours": 19
     }
-  ]
+  }, {
+    "id": "2023-05-01 13hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 1,
+      "hours": 13
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 1
+    }
+  }, {
+    "id": "2023-05-01 19hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 1,
+      "hours": 19
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 7
+    }
+  }, {
+    "id": "2023-05-02 7hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 7
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 19
+    }
+  }, {
+    "id": "2023-05-02 13hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 13
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 1
+    }
+  }, {
+    "id": "2023-05-02 19hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 2,
+      "hours": 19
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 7
+    }
+  }, {
+    "id": "2023-05-03 7hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 7
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 19
+    }
+  }, {
+    "id": "2023-05-03 13hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 13
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 1
+    }
+  }, {
+    "id": "2023-05-03 19hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 3,
+      "hours": 19
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 7
+    }
+  }, {
+    "id": "2023-05-04 7hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 7
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 19
+    }
+  }, {
+    "id": "2023-05-04 13hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 13
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 5,
+      "hours": 1
+    }
+  }, {
+    "id": "2023-05-04 19hr",
+    "locationId": "department",
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 4,
+      "hours": 19
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 5,
+      "hours": 7
+    }
+  }],
+  "coverageRequirements": [{
+    "startDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 1,
+      "hours": 7
+    },
+    "endDateTime": {
+      "year": 2023,
+      "month": 5,
+      "day": 5,
+      "hours": 7
+    },
+    "locationId": "department",
+    "roleRequirements": [{
+      "roleId": "Registered Nurse",
+      "targetEmployeeCount": 2,
+      "priority": "PRIORITY_MANDATORY"
+    }]
+  }],
+  "roleIds": ["Registered Nurse"],
+  "locationIds": ["department"]
 }
