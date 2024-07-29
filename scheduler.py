@@ -38,14 +38,14 @@ def create_monthly_shift_schedule(employees, shifts, start_date):
     for e in range(num_employees):
         for d in range(num_days - 1):
             if night_shift is not None:
-                csp_model.AddImplication(shift_vars[(e, d, night_shift)], 
-                                         csp_model.NewBoolOr([shift_vars[(e, d+1, night_shift)].Not(), 
-                                                              csp_model.NewBoolAnd([shift_vars[(e, d+1, s)].Not() for s in range(num_shifts)])]))
+                # If working night shift, next day can only be night shift or off
+                csp_model.Add(shift_vars[(e, d, night_shift)] + 
+                              sum(shift_vars[(e, d+1, s)] for s in range(num_shifts) if s != night_shift) <= 1)
             
             if evening_shift is not None:
-                csp_model.AddImplication(shift_vars[(e, d, evening_shift)], 
-                                         csp_model.NewBoolOr([shift_vars[(e, d+1, evening_shift)].Not(), 
-                                                              csp_model.NewBoolAnd([shift_vars[(e, d+1, s)].Not() for s in range(num_shifts)])]))
+                # If working evening shift, next day can only be evening shift or off
+                csp_model.Add(shift_vars[(e, d, evening_shift)] + 
+                              sum(shift_vars[(e, d+1, s)] for s in range(num_shifts) if s != evening_shift) <= 1)
 
     # Constraints: Ensure at least 2 days off per week
     for e in range(num_employees):
@@ -98,9 +98,11 @@ def create_monthly_shift_schedule(employees, shifts, start_date):
     for e in range(num_employees):
         for d in range(num_days - 1):
             if night_shift is not None:
-                ilp_solver.Add(ilp_vars[(e, d, night_shift)] + sum(ilp_vars[(e, d+1, s)] for s in range(num_shifts) if s != night_shift) <= 1)
+                ilp_solver.Add(ilp_vars[(e, d, night_shift)] + 
+                               sum(ilp_vars[(e, d+1, s)] for s in range(num_shifts) if s != night_shift) <= 1)
             if evening_shift is not None:
-                ilp_solver.Add(ilp_vars[(e, d, evening_shift)] + sum(ilp_vars[(e, d+1, s)] for s in range(num_shifts) if s != evening_shift) <= 1)
+                ilp_solver.Add(ilp_vars[(e, d, evening_shift)] + 
+                               sum(ilp_vars[(e, d+1, s)] for s in range(num_shifts) if s != evening_shift) <= 1)
 
     # ILP Constraints: Ensure at least 2 days off per week
     for e in range(num_employees):

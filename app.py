@@ -57,6 +57,9 @@ def generate_schedule():
     
     monthly_schedule = create_monthly_shift_schedule(employees, shifts, start_date)
     
+    # Clear existing schedules
+    Schedule.query.delete()
+    
     for emp_id, emp_schedule in monthly_schedule.items():
         for day, shift_id in emp_schedule.items():
             work_date = start_date + datetime.timedelta(days=day)
@@ -65,7 +68,17 @@ def generate_schedule():
     
     db.session.commit()
     
-    return jsonify({'message': 'Monthly schedule generated successfully'})
+    # Prepare schedule data for the template
+    schedule_data = {}
+    for emp in employees:
+        schedule_data[emp['name']] = {}
+        for schedule in Schedule.query.filter_by(employee_id=emp['id']).all():
+            if schedule.work_date not in schedule_data[emp['name']]:
+                schedule_data[emp['name']][schedule.work_date] = []
+            shift = Shift.query.get(schedule.shift_id)
+            schedule_data[emp['name']][schedule.work_date].append(f"{shift.start_time.strftime('%H:%M')}-{shift.end_time.strftime('%H:%M')}")
+    
+    return render_template('index.html', schedule=schedule_data, start_date=start_date, datetime=datetime)
 
 if __name__ == '__main__':
     app.run(debug=True)
