@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shift Scheduler</title>
+</head>
+<body>
+    <h1>Shift Scheduler</h1>
+    <form action="/add_employee" method="post">
+        <input type="text" name="name" placeholder="Employee Name" required>
+        <button type="submit">Add Employee</button>
+    </form>
+    
+    <form action="/add_shift" method="post">
+        <input type="time" name="start_time" placeholder="Start Time" required>
+        <input type="time" name="end_time" placeholder="End Time" required>
+        <button type="submit">Add Shift</button>
+    </form>
+    
+    <form action="/generate_schedule" method="post">
+        <input type="date" name="start_date" required>
+        <button type="submit">Generate Schedule</button>
+    </form>
+</body>
+</html>
