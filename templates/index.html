@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shift Scheduler</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shift Scheduler</h1>
+    <form action="/add_employee" method="post">
+        <input type="text" name="name" placeholder="Employee Name" required>
+        <button type="submit">Add Employee</button>
+    </form>
+    
+    <form action="/add_shift" method="post">
+        <input type="time" name="start_time" placeholder="Start Time" required>
+        <input type="time" name="end_time" placeholder="End Time" required>
+        <button type="submit">Add Shift</button>
+    </form>
+    
+    <form action="/generate_schedule" method="post">
+        <input type="date" name="start_date" required>
+        <button type="submit">Generate Schedule</button>
+    </form>
+
+    {% if schedule %}
+    <h2>Generated Schedule</h2>
+    {% for week in range(0, 28, 7) %}
+    <h3>Week {{ week // 7 + 1 }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee</th>
+                {% for day in range(7) %}
+                    <th>{{ (start_date + datetime.timedelta(days=week+day)).strftime('%A, %B %d, %Y') }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee, assignments in schedule.items() %}
+            <tr>
+                <td>{{ employee }}</td>
+                {% for day in range(7) %}
+                <td>
+                    {% set current_date = start_date + datetime.timedelta(days=week+day) %}
+                    {% if current_date in assignments %}
+                        {{ ', '.join(assignments[current_date]) }}
+                    {% else %}
+                        Off
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
