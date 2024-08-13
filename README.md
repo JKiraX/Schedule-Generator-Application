@@ -17,11 +17,14 @@ venv\Scripts\activate
 3. Install Required Packages:
 pip install -r requirements.txt
 
-4. Create a .env file in your root directory with the Database Connection String
-->> The config.py file is for the database connection code 
+4. Create a .env file in your root directory with the Database Connection Credentials
 
-# Running the App
-1. python run.py
+# Running the Backend
+1. python app.py
+
+
+# Running Frontend
+1. http://localhost:5000/ 
 
 # Google OR Tools Set-Up
 https://developers.google.com/optimization/service/setup
