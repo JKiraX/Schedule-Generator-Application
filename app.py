@@ -2,9 +2,20 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from scheduler import create_monthly_shift_schedule
 import datetime
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://schedulerun:ZTBHx3Q4j4dk0eyK@10.243.163.197/schedulardb'
+# Get the database connection details from environment variables
+db_user = os.getenv('DATABASE_USER')
+db_password = os.getenv('DATABASE_PASSWORD')
+db_host = os.getenv('DATABASE_HOST')
+db_port = os.getenv('DATABASE_PORT')
+db_name = os.getenv('DATABASE_NAME')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
 db = SQLAlchemy(app)
 
 class Employee(db.Model):
