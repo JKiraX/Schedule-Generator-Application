@@ -2,6 +2,7 @@ from ortools.sat.python import cp_model
 from ortools.linear_solver import pywraplp
 import datetime
 
+# Google OR Linear Solver
 def create_two_month_shift_schedule(employees, shifts, start_date):
     num_days_per_month = 28
     num_months = 2
@@ -11,10 +12,10 @@ def create_two_month_shift_schedule(employees, shifts, start_date):
     full_schedule = {}
 
     for month in range(num_months):
-        # Step 1: CSP to Generate Initial Feasible Solutions
+        # CSP to Generate Initial Feasible Solutions
         csp_model = cp_model.CpModel()
 
-        # Create variables for each employee, day, and shift
+        # variables for each employee, day, and shift
         shift_vars = {}
         for e in range(num_employees):
             for d in range(num_days_per_month):
