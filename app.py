@@ -163,7 +163,7 @@ def generate_schedule_task(start_date=None):
             print(f"Error generating schedule: {str(e)}")
 
 
- 
+# @scheduler.task('cron', id='generate_schedule', minute='*/1') - for testing (generating every minute)
 @scheduler.task('cron', id='generate_schedule', day=1, month='1,3,5,7,9,11', hour=0, minute=0)
 def scheduled_generate_schedule():
     generate_schedule_task()
