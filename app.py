@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from scheduler import create_two_month_shift_schedule
 from flask_apscheduler import APScheduler
-
+import logging
 import datetime
 import os
 from dotenv import load_dotenv
@@ -16,6 +16,9 @@ app = Flask(__name__)
 scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Get the database connection details from environment variables
 db_user = os.getenv('DATABASE_USER')
@@ -121,84 +124,73 @@ def trigger_schedule_generation():
         return jsonify({'message': 'Schedule generation triggered successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-def generate_schedule_task(start_date=None):
-    with app.app_context():
-        try:
-            if start_date is None:
-                start_date = datetime.date.today().replace(day=1)  # Start from the first day of the current month
-            
-            # Calculate the end of the second month
-            first_day_next_month = (start_date.replace(day=28) + datetime.timedelta(days=4)).replace(day=1)
-            end_date = (first_day_next_month.replace(day=28) + datetime.timedelta(days=32)).replace(day=1) - datetime.timedelta(days=1)
-
-            # Check if schedules already exist for the given period
-            existing_schedules_count = Schedule.query.filter(Schedule.work_date >= start_date, Schedule.work_date <= end_date).count()
-            if existing_schedules_count > 0:
-                print(f"Schedules already exist for the period: {start_date} to {end_date}. Skipping generation.")
-                return
-
-            # Exclude users who are admins (RoleId = 1)
-            non_admin_users = db.session.query(Employee.id, Employee.first_name, Employee.last_name).\
-                join(IdentityUserRole, Employee.id == IdentityUserRole.user_id).\
-                filter(IdentityUserRole.role_id != 1).all()
-
-            employees = [{'id': user.id, 'name': f"{user.first_name} {user.last_name}"} for user in non_admin_users]
-            shifts = [{'id': s.id, 'start_time': s.start_time, 'end_time': s.end_time} for s in Shift.query.all()]
-            
-            two_month_schedule = create_two_month_shift_schedule(employees, shifts, start_date)
-            
-            for emp_id, emp_schedule in two_month_schedule.items():
-                for day, shift_id in emp_schedule.items():
-                    work_date = start_date + datetime.timedelta(days=day)
-                    if work_date > end_date:
-                        continue
-                    new_schedule = Schedule(employee_id=emp_id, shift_id=shift_id, work_date=work_date)
-                    db.session.add(new_schedule)
-            
-            db.session.commit()
-            print(f"Schedule generated for period: {start_date} to {end_date}")
-        except Exception as e:
-            db.session.rollback()
-            print(f"Error generating schedule: {str(e)}")
-
-
-# @scheduler.task('cron', id='generate_schedule', minute='*/1') - for testing (generating every minute)
-@scheduler.task('cron', id='generate_schedule', day=1, month='1,3,5,7,9,11', hour=0, minute=0)
-def scheduled_generate_schedule():
-    generate_schedule_task()
-def check_and_generate_schedule():
     
+
+# Scheduler task to run on the 1st day of specified months at 00:00
+@scheduler.task('cron', id='generate_schedule', month='1,3,5,7,9,11', day=1, hour=0, minute=0, max_instances=1)
+def scheduled_generate_schedule():
     with app.app_context():
-        try:
-            # Get the start date of the current month
-            start_date = datetime.date.today().replace(day=1)
-            
-            # Calculate the end of the second month
-            first_day_next_month = (start_date.replace(day=28) + datetime.timedelta(days=4)).replace(day=1)
-            end_date = (first_day_next_month.replace(day=28) + datetime.timedelta(days=32)).replace(day=1) - datetime.timedelta(days=1)
+        current_date = datetime.date.today()
+        logger.info(f"Generating schedule for month: {current_date.month}")
+        generate_schedule_task(current_date)
 
-            # Check if there are existing schedules for the period
-            existing_schedules = Schedule.query.filter(Schedule.work_date >= start_date, Schedule.work_date <= end_date).count()
-
-            if existing_schedules == 0:
-                # No schedules exist for this period, so generate new ones
-                print(f"No existing schedules found for period: {start_date} to {end_date}. Generating new schedules.")
-                generate_schedule_task(start_date)
-            else:
-                print(f"Schedules already exist for period: {start_date} to {end_date}. No action taken.")
-        except Exception as e:
-            print(f"Error checking schedules: {str(e)}")
-
-# Route to manually trigger the check and generate function
-@app.route('/check_and_generate_schedule', methods=['POST'])
-def check_and_generate_schedule_route():
+def generate_schedule_task(start_date):
     try:
-        check_and_generate_schedule()
-        return jsonify({'message': 'Check and generate schedule task completed successfully'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.info(f"Starting schedule generation for date: {start_date}")
+        
+        # Calculate the end of the second month
+        first_day_next_month = (start_date.replace(day=28) + datetime.timedelta(days=4)).replace(day=1)
+        end_date = (first_day_next_month.replace(day=28) + datetime.timedelta(days=4)).replace(day=1) - datetime.timedelta(days=1)
 
+        # Check if schedules already exist for the given period
+        existing_schedules = Schedule.query.filter(Schedule.work_date >= start_date, Schedule.work_date <= end_date).first()
+        if existing_schedules:
+            logger.info(f"Schedules already exist for the period: {start_date} to {end_date}. Skipping generation.")
+            return
+
+        # Exclude users who are admins (RoleId = 1)
+        non_admin_users = db.session.query(Employee.id, Employee.first_name, Employee.last_name).\
+            join(IdentityUserRole, Employee.id == IdentityUserRole.user_id).\
+            filter(IdentityUserRole.role_id != 1).all()
+
+        employees = [{'id': user.id, 'name': f"{user.first_name} {user.last_name}"} for user in non_admin_users]
+        shifts = [{'id': s.id, 'start_time': s.start_time, 'end_time': s.end_time} for s in Shift.query.all()]
+        
+        logger.info(f"Generating schedule for {len(employees)} employees and {len(shifts)} shifts")
+
+        two_month_schedule = create_two_month_shift_schedule(employees, shifts, start_date)
+        
+        schedules_added = 0
+        for emp_id, emp_schedule in two_month_schedule.items():
+            for day, shift_id in emp_schedule.items():
+                work_date = start_date + datetime.timedelta(days=day)
+                if work_date > end_date:
+                    continue
+                new_schedule = Schedule(employee_id=emp_id, shift_id=shift_id, work_date=work_date)
+                db.session.add(new_schedule)
+                schedules_added += 1
+        
+        db.session.commit()
+        logger.info(f"Schedule generated successfully. Added {schedules_added} entries for period: {start_date} to {end_date}")
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error generating schedule: {str(e)}")
+# @app.before_first_request
+# def init_scheduler():
+#     if not scheduler.running:
+#         scheduler.start()
+
+# @scheduler.task('cron', id='generate_schedule', minute="*/3", max_instances=1)
+# def scheduled_generate_schedule():
+#     with app.app_context():
+#         current_date = datetime.date.today()
+#         generate_schedule_task(current_date)
+
+
+  
 
 if __name__ == '__main__':
+    with app.app_context():
+        if not scheduler.running:
+            scheduler.start()
     app.run(debug=True)
