@@ -36,9 +36,9 @@ db = SQLAlchemy(app)
 class Employee(db.Model):
     __tablename__ = 'appuser'
     __table_args__ = {'schema': 'public'}
-    id = db.Column('Id', db.Integer, primary_key=True)  # Use 'Id' with correct case
-    first_name = db.Column('firstName', db.String(100), nullable=False)
-    last_name = db.Column('lastName', db.String(100), nullable=False)
+    id = db.Column('Id', db.Integer, primary_key=True)  
+    first_name = db.Column('firstName', db.String(100), nullable=False)  
+    last_name = db.Column('lastName', db.String(100), nullable=False)  
 
     @property
     def full_name(self):
@@ -47,7 +47,7 @@ class Employee(db.Model):
 class Shift(db.Model):
     __tablename__ = 'shifts'
     __table_args__ = {'schema': 'public'}
-    id = db.Column('shiftID', db.Integer, primary_key=True)  # Corrected to 'shiftID'
+    shift_id = db.Column('shift_id', db.Integer, primary_key=True)  
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
 
@@ -55,17 +55,17 @@ class Schedule(db.Model):
     __tablename__ = 'schedules'
     __table_args__ = {'schema': 'public'}
     
-    schedule_id = db.Column('scheduleID', db.Integer, primary_key=True)  # Corrected to 'scheduleID'
-    employee_id = db.Column('Id', db.Integer, nullable=False)  # Corrected to 'Id'
-    shift_id = db.Column('shiftID', db.Integer, db.ForeignKey('public.shifts.shiftID'), nullable=False)
+    schedule_id = db.Column('schedule_id', db.Integer, primary_key=True) 
+    user_id = db.Column('user_id', db.Integer, nullable=False)  
+    shift_id = db.Column('shift_id', db.Integer, db.ForeignKey('public.shifts.shift_id'), nullable=False) 
     work_date = db.Column(db.Date, nullable=False)
-    schedule_hours = db.Column('scheduleHours', db.Integer, nullable=False, default=8)  # Default value set to 8
+    schedule_hours = db.Column('schedule_hours', db.Integer, nullable=False, default=8)  
 
 class IdentityUserRole(db.Model):
     __tablename__ = 'identityuserrole'
     __table_args__ = {'schema': 'public'}
     
-    user_id = db.Column('UserId', db.Integer, db.ForeignKey('public.appuser.Id'), primary_key=True)
+    user_id = db.Column('UserId', db.Integer, db.ForeignKey('public.appuser.Id'), primary_key=True) 
     role_id = db.Column('RoleId', db.Integer, nullable=False)
 
 
@@ -154,7 +154,7 @@ def generate_schedule_task(start_date):
             filter(IdentityUserRole.role_id != 1).all()
 
         employees = [{'id': user.id, 'name': f"{user.first_name} {user.last_name}"} for user in non_admin_users]
-        shifts = [{'id': s.id, 'start_time': s.start_time, 'end_time': s.end_time} for s in Shift.query.all()]
+        shifts = [{'id': s.shift_id, 'start_time': s.start_time, 'end_time': s.end_time} for s in Shift.query.all()]
         
         logger.info(f"Generating schedule for {len(employees)} employees and {len(shifts)} shifts")
 
@@ -166,7 +166,7 @@ def generate_schedule_task(start_date):
                 work_date = start_date + datetime.timedelta(days=day)
                 if work_date > end_date:
                     continue
-                new_schedule = Schedule(employee_id=emp_id, shift_id=shift_id, work_date=work_date)
+                new_schedule = Schedule(user_id=emp_id, shift_id=shift_id, work_date=work_date)
                 db.session.add(new_schedule)
                 schedules_added += 1
         
@@ -175,19 +175,6 @@ def generate_schedule_task(start_date):
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error generating schedule: {str(e)}")
-# @app.before_first_request
-# def init_scheduler():
-#     if not scheduler.running:
-#         scheduler.start()
-
-# @scheduler.task('cron', id='generate_schedule', minute="*/3", max_instances=1)
-# def scheduled_generate_schedule():
-#     with app.app_context():
-#         current_date = datetime.date.today()
-#         generate_schedule_task(current_date)
-
-
-  
 
 if __name__ == '__main__':
     with app.app_context():
