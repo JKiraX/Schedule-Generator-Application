@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 8px 16px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Feedback Debug Panel</h1>
+    
+    <h2>Test Feedback Submission</h2>
+    <form action="/submit_feedback" method="post">
+        <div>
+            <label>Schedule ID:</label>
+            <select name="schedule_id" required>
+                <option value="">Select a schedule</option>
+                {% for schedule in test_schedules %}
+                <option value="{{ schedule.schedule_id }}">ID: {{ schedule.schedule_id }} - {{ schedule.employee }} - {{ schedule.date }} - {{ schedule.shift }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Satisfaction Score:</label>
+            <select name="satisfaction_score" required>
+                <option value="5">5 - Very Happy</option>
+                <option value="4">4 - Happy</option>
+                <option value="3" selected>3 - Neutral</option>
+                <option value="2">2 - Unhappy</option>
+                <option value="1">1 - Very Unhappy</option>
+            </select>
+        </div>
+        <button type="submit" style="margin-top: 10px;">Submit Test Feedback</button>
+    </form>
+    
+    <h2>Existing Feedback Data</h2>
+    {% if feedback_data %}
+    <table>
+        <thead>
+            <tr>
+                <th>Feedback ID</th>
+                <th>Schedule ID</th>
+                <th>Employee</th>
+                <th>Shift</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedback_data %}
+            <tr>
+                <td>{{ feedback.feedback_id }}</td>
+                <td>{{ feedback.schedule_id }}</td>
+                <td>{{ feedback.employee }}</td>
+                <td>{{ feedback.shift }}</td>
+                <td>{{ feedback.date }}</td>
+                <td>{{ feedback.score }}</td>
+                <td>{{ feedback.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No feedback data found.</p>
+    {% endif %}
+    
+    <a href="/debug/tables" target="_blank">View All Tables</a>
+</body>
+</html>
+        

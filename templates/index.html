@@ -1,8 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shift Scheduler</title>
+    <title>AI Shift Scheduler</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .forms-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -16,58 +40,371 @@
         th {
             background-color: #f2f2f2;
         }
+        input, button, select {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button, .btn-style {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        button:hover, .btn-style:hover {
+            opacity: 0.8;
+            background-color: #45a049;
+        }
+        .preference-form {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .preference-slider {
+            width: 100%;
+        }
+        .feedback-section {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .status-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .status-box {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .status-count {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .flash-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .flash-error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        .debug-info {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px dashed #ccc;
+        }
     </style>
 </head>
 <body>
-    <h1>Shift Scheduler</h1>
-    <form action="/add_employee" method="post">
-        <input type="text" name="name" placeholder="Employee Name" required>
-        <button type="submit">Add Employee</button>
-    </form>
+    <h1>AI-Powered Shift Scheduler</h1>
     
-    <form action="/add_shift" method="post">
-        <input type="time" name="start_time" placeholder="Start Time" required>
-        <input type="time" name="end_time" placeholder="End Time" required>
-        <button type="submit">Add Shift</button>
-    </form>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     
-    <form action="/generate_schedule" method="post">
-        <input type="date" name="start_date" required>
-        <button type="submit">Generate Schedule</button>
-    </form>
+    <div class="status-info">
+        <div class="status-box">
+            <div>Employees</div>
+            <div class="status-count" id="employee-count">{{ employee_count }}</div>
+        </div>
+        <div class="status-box">
+            <div>Shifts</div>
+            <div class="status-count" id="shift-count">{{ shift_count }}</div>
+        </div>
+        <div class="status-box">
+            <div>Schedule Entries</div>
+            <div class="status-count" id="schedule-count">{{ schedule_count }}</div>
+        </div>
+    </div>
+    
+    <!-- Schedule Navigation -->
+    <div class="section">
+        <h2>View Schedules</h2>
+        <div class="navigation">
+            {% if start_date %}
+            <a href="{{ url_for('view_schedules', start_date=prev_month.strftime('%Y-%m-%d')) }}" class="btn-style">← Previous Month</a>
+            <span style="font-weight: bold;">{{ start_date.strftime('%B %Y') }}</span>
+            <a href="{{ url_for('view_schedules', start_date=next_month.strftime('%Y-%m-%d')) }}" class="btn-style">Next Month →</a>
+            {% else %}
+            <span>Select a date range to view schedules</span>
+            {% endif %}
+        </div>
+        <form action="{{ url_for('view_schedules') }}" method="get" style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <div>
+                <label>Start Date:</label>
+                <input type="date" name="start_date" value="{{ start_date.strftime('%Y-%m-%d') if start_date else '' }}">
+            </div>
+            <button type="submit" class="btn-style">View Schedule</button>
+        </form>
+    </div>
+    
+    <div class="forms-container">
+        <div class="form-section">
+            <h2>Add Employee</h2>
+            <form action="/add_employee" method="post">
+                <div>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+                <div>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+                <button type="submit">Add Employee</button>
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h2>Add Shift</h2>
+            <form action="/add_shift" method="post">
+                <div>
+                    <input type="text" name="shift_name" placeholder="Shift Name" required>
+                </div>
+                <div>
+                    <label>Start Time:</label>
+                    <input type="time" name="start_time" required>
+                </div>
+                <div>
+                    <label>End Time:</label>
+                    <input type="time" name="end_time" required>
+                </div>
+                <button type="submit">Add Shift</button>
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h2>Generate Schedule</h2>
+            <form action="/generate_schedule" method="post">
+                <div>
+                    <label>Start Date:</label>
+                    <input type="date" name="start_date" required>
+                </div>
+                <button type="submit">Generate Schedule</button>
+            </form>
+            
+            <form action="/trigger_schedule_generation" method="post" style="margin-top: 15px;">
+                <button type="submit">Generate for Next Month</button>
+            </form>
+            
+            <form action="/optimize_preferences" method="post" style="margin-top: 15px;">
+                <button type="submit">Run AI Optimization</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Employee Preferences</h2>
+        <form action="/update_preference" method="post" class="preference-form">
+            <div>
+                <label>Employee:</label>
+                <select name="user_id" required>
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Shift:</label>
+                <select name="shift_id" required>
+                    <option value="">Select Shift</option>
+                    {% for shift in shifts %}
+                    <option value="{{ shift.shift_id }}">{{ shift.shift_name }} ({{ shift.start_time.strftime('%H:%M') }} - {{ shift.end_time.strftime('%H:%M') }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Day of Week:</label>
+                <select name="day_of_week">
+                    <option value="">Any Day</option>
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="7">Sunday</option>
+                </select>
+            </div>
+            <div>
+                <label>Preference Level (0.5 = Avoid, 1.0 = Neutral, 2.0 = Prefer):</label>
+                <input type="range" name="weight" min="0.5" max="2.0" step="0.1" value="1.0" class="preference-slider">
+                <output name="weight_output">1.0</output>
+            </div>
+            <button type="submit">Save Preference</button>
+        </form>
+        
+        <form action="/update_consecutive_preference" method="post" class="preference-form">
+            <h3>Consecutive Days Preference</h3>
+            <div>
+                <label>Employee:</label>
+                <select name="user_id" required>
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Preferred Consecutive Days:</label>
+                <input type="number" name="preferred_days" min="1" max="5" value="2" required>
+            </div>
+            <div>
+                <label>Minimum Consecutive Days:</label>
+                <input type="number" name="min_days" min="1" max="5" value="1" required>
+            </div>
+            <div>
+                <label>Maximum Consecutive Days:</label>
+                <input type="number" name="max_days" min="1" max="5" value="3" required>
+            </div>
+            <button type="submit">Save Preference</button>
+        </form>
+    </div>
+    
+    <div class="section">
+        <h2>Availability</h2>
+        <form action="/update_availability" method="post" class="preference-form">
+            <div>
+                <label>Employee:</label>
+                <select name="user_id" required>
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Date:</label>
+                <input type="date" name="date" required>
+            </div>
+            <div>
+                <label>Available:</label>
+                <select name="is_available" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div>
+                <label>Reason (if unavailable):</label>
+                <input type="text" name="reason">
+            </div>
+            <button type="submit">Update Availability</button>
+        </form>
+    </div>
 
     {% if schedule %}
-    <h2>Generated Schedule</h2>
-    {% for week in range(0, 28, 7) %}
-    <h3>Week {{ week // 7 + 1 }}</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Employee</th>
-                {% for day in range(7) %}
-                    <th>{{ (start_date + datetime.timedelta(days=week+day)).strftime('%A, %B %d, %Y') }}</th>
+    <div class="section">
+        <h2>Generated Schedule</h2>
+        
+        <!-- Debug info -->
+        <div class="debug-info">
+            <h4>Debug Information</h4>
+            <p>Schedule entries: {{ schedule|length }}</p>
+            <p>Schedule IDs: {{ schedule_ids|length }}</p>
+        </div>
+        
+        {% for week in range(0, 28, 7) %}
+        <h3>Week {{ week // 7 + 1 }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    {% for day in range(7) %}
+                        <th>{{ (start_date + datetime.timedelta(days=week+day)).strftime('%a, %b %d') }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee, assignments in schedule.items() %}
+                <tr>
+                    <td>{{ employee }}</td>
+                    {% for day in range(7) %}
+                    <td>
+                        {% set current_day = week+day %}
+                        {% if current_day in assignments %}
+                            {{ shift_names[assignments[current_day]] }}
+                            <div class="feedback-section">
+                                <form action="/submit_feedback" method="post">
+                                    {% set schedule_id = schedule_ids.get(employee + '_' + current_day|string, '') %}
+                                    <input type="hidden" name="schedule_id" value="{{ schedule_id }}">
+                                    <!-- Debug info -->
+                                    <small style="color: gray; display: block; margin-bottom: 5px;">ID: {{ schedule_id or 'Not set' }}</small>
+                                    <select name="satisfaction_score">
+                                        <option value="5">Very Happy</option>
+                                        <option value="4">Happy</option>
+                                        <option value="3" selected>Neutral</option>
+                                        <option value="2">Unhappy</option>
+                                        <option value="1">Very Unhappy</option>
+                                    </select>
+                                    <button type="submit" title="Submit feedback for this shift" style="padding: 2px 8px;">Rate</button>
+                                </form>
+                            </div>
+                        {% else %}
+                            Off
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for employee, assignments in schedule.items() %}
-            <tr>
-                <td>{{ employee }}</td>
-                {% for day in range(7) %}
-                <td>
-                    {% set current_date = start_date + datetime.timedelta(days=week+day) %}
-                    {% if current_date in assignments %}
-                        {{ ', '.join(assignments[current_date]) }}
-                    {% else %}
-                        Off
-                    {% endif %}
-                </td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
     {% endif %}
+
+    <div class="section">
+        <h2>Debugging Tools</h2>
+        <div style="display: flex; gap: 10px;">
+            <a href="/debug/feedback" class="btn-style" target="_blank">Feedback Debug Panel</a>
+            <a href="/debug/tables" class="btn-style" target="_blank">View Database Tables</a>
+        </div>
+    </div>
+
+    <script>
+        // Update the preference slider output value
+        document.querySelector('.preference-slider').addEventListener('input', function() {
+            document.querySelector('output[name="weight_output"]').value = this.value;
+        });
+        
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(function() {
+            var flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(message) {
+                message.style.display = 'none';
+            });
+        }, 5000);
+    </script>
 </body>
 </html>
