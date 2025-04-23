@@ -10,6 +10,15 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# For debugging purposes - you can remove this later
+print("Environment variables:", {
+    "DB_USER": os.getenv('DB_USER'),
+    "DB_PASSWORD": os.getenv('DB_PASSWORD'),
+    "DB_HOST": os.getenv('DB_HOST'),
+    "DB_PORT": os.getenv('DB_PORT'),
+    "DB_NAME": os.getenv('DB_NAME')
+})
+
 app = Flask(__name__)
 
 # Initialize APScheduler
@@ -20,12 +29,12 @@ scheduler.start()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Get the database connection details from environment variables
-db_user = os.getenv('DATABASE_USER')
-db_password = os.getenv('DATABASE_PASSWORD')
-db_host = os.getenv('DATABASE_HOST')
-db_port = os.getenv('DATABASE_PORT')
-db_name = os.getenv('DATABASE_NAME')
+# Get the database connection details from environment variables - FIXED
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv('DB_NAME')
 
 # Ensure all environment variables are loaded
 assert all([db_user, db_password, db_host, db_port, db_name]), "Database environment variables missing"
@@ -106,8 +115,6 @@ def add_shift():
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
-        
-
 @app.route('/generate_schedule', methods=['POST'])
 def generate_schedule():
     try:
@@ -125,7 +132,6 @@ def trigger_schedule_generation():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-
 # Scheduler task to run on the 1st day of specified months at 00:00
 @scheduler.task('cron', id='generate_schedule', month='1,3,5,7,9,11', day=1, hour=0, minute=0, max_instances=1)
 def scheduled_generate_schedule():
@@ -134,8 +140,11 @@ def scheduled_generate_schedule():
         logger.info(f"Generating schedule for month: {current_date.month}")
         generate_schedule_task(current_date)
 
-def generate_schedule_task(start_date):
+def generate_schedule_task(start_date=None):
     try:
+        if start_date is None:
+            start_date = datetime.date.today()
+            
         logger.info(f"Starting schedule generation for date: {start_date}")
         
         # Calculate the end of the second month
