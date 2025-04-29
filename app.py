@@ -15,6 +15,9 @@ from models import EmployeePreference, EmployeeConsecutiveDayPreference, ShiftTr
 from scheduler import create_two_month_shift_schedule
 from ml_scheduler import ScheduleOptimizer
 
+# Import API blueprint
+from flask_api_endpoints import api
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -28,7 +31,7 @@ print("Environment variables:", {
 })
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'dev_secret_key_change_in_production')  # For flash messages
+app.secret_key = os.getenv('SECRET_KEY', 'dev_secret_key_change_in_production')
 
 # Initialize APScheduler
 scheduler = APScheduler()
@@ -54,6 +57,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the database with our app
 db.init_app(app)
+
+# Register the API blueprint
+app.register_blueprint(api)
 
 # Helper functions
 def get_employee_name(employee_id):

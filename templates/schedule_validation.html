@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule Validation Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2, h3 { color: #333; }
+        .valid { color: green; }
+        .invalid { color: red; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .summary { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .issues { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Schedule Validation Results</h1>
+    
+    <div class="summary">
+        <h2>Summary</h2>
+        <p>Date Range: {{ start_date.strftime('%Y-%m-%d') }} to {{ end_date.strftime('%Y-%m-%d') }}</p>
+        <p>Schedule Status: 
+            {% if validation_results.valid %}
+            <span class="valid">VALID</span>
+            {% else %}
+            <span class="invalid">INVALID</span>
+            {% endif %}
+        </p>
+    </div>
+    
+    <h2>All Shifts Covered</h2>
+    <p>Status: 
+        {% if validation_results.all_shifts_covered.valid %}
+        <span class="valid">VALID</span>
+        {% else %}
+        <span class="invalid">INVALID</span>
+        {% endif %}
+    </p>
+    
+    {% if validation_results.all_shifts_covered.issues %}
+    <div class="issues">
+        <h3>Issues ({{ validation_results.all_shifts_covered.issues|length }})</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Shift</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in validation_results.all_shifts_covered.issues %}
+                <tr>
+                    <td>{{ issue.date }}</td>
+                    <td>{{ issue.shift_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <h2>Weekly Workload</h2>
+    <p>Status: 
+        {% if validation_results.weekly_workload.valid %}
+        <span class="valid">VALID</span>
+        {% else %}
+        <span class="invalid">INVALID</span>
+        {% endif %}
+    </p>
+    
+    {% if validation_results.weekly_workload.issues %}
+    <div class="issues">
+        <h3>Issues ({{ validation_results.weekly_workload.issues|length }})</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Week Starting</th>
+                    <th>Days Worked</th>
+                    <th>Expected</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in validation_results.weekly_workload.issues %}
+                <tr>
+                    <td>{{ issue.employee_name }}</td>
+                    <td>{{ issue.week_start_date }}</td>
+                    <td>{{ issue.days_worked }}</td>
+                    <td>{{ issue.expected }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <h2>Consecutive Days</h2>
+    <p>Status: 
+        {% if validation_results.consecutive_days.valid %}
+        <span class="valid">VALID</span>
+        {% else %}
+        <span class="invalid">INVALID</span>
+        {% endif %}
+    </p>
+    
+    {% if validation_results.consecutive_days.issues %}
+    <div class="issues">
+        <h3>Issues ({{ validation_results.consecutive_days.issues|length }})</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Start Date</th>
+                    <th>Consecutive Days</th>
+                    <th>Expected</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in validation_results.consecutive_days.issues %}
+                <tr>
+                    <td>{{ issue.employee_name }}</td>
+                    <td>{{ issue.start_date }}</td>
+                    <td>{{ issue.consecutive_days }}</td>
+                    <td>{{ issue.expected }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <h2>Shift Transitions</h2>
+    <p>Status: 
+        {% if validation_results.shift_transitions.valid %}
+        <span class="valid">VALID</span>
+        {% else %}
+        <span class="invalid">INVALID</span>
+        {% endif %}
+    </p>
+    
+    {% if validation_results.shift_transitions.issues %}
+    <div class="issues">
+        <h3>Issues ({{ validation_results.shift_transitions.issues|length }})</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>From Shift</th>
+                    <th>To Shift</th>
+                    <th>Issue</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in validation_results.shift_transitions.issues %}
+                <tr>
+                    <td>{{ issue.employee_name }}</td>
+                    <td>{{ issue.day1_date }}</td>
+                    <td>{{ issue.shift1 }}</td>
+                    <td>{{ issue.shift2 }}</td>
+                    <td>{{ issue.issue }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <h2>Total Hours Per Employee</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Total Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp_id, data in validation_results.total_hours_per_employee.items() %}
+            <tr>
+                <td>{{ data.employee_name }}</td>
+                <td>{{ data.total_hours }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p>
+        <a href="{{ url_for('index') }}">Back to Dashboard</a>
+    </p>
+</body>
+</html>
+        
